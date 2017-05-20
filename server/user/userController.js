@@ -25,7 +25,14 @@ userController.createQuery = (req, res, next) => {
         res.end();
     })
     next();
+
 }
 
+userController.verifyUser = (req, res, next) => {
+  User.findOne({username: req.body.phone}, (err, result) => {
+    if (err) throw err;
+    else next()
+  })
+};
 
 module.exports = userController;
