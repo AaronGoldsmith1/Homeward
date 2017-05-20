@@ -13,14 +13,17 @@ mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
-app.use(express.static(path.join(__dirname, './../node_modules/')));
-app.use(express.static(path.join(__dirname, './../client/')));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(stormpath.init(app, {
+  web: {
+    produces: ['application/json']
+  }
+}));
 
-
-app.post("/sms", dbController.ParseText)
-app.get('/getsms', dbController.getList)
-
-app.listen(PORT, () => {
-  console.log('Listening on port 3000');
+app.on('stormpath.ready', function () {
+  app.listen(3000, 'localhost', function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('Listening at http://localhost:3000');
+  });
 });
