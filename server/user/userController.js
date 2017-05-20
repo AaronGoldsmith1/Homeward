@@ -22,7 +22,7 @@ userController.createQuery = (req, res, next) => {
     }).update({ $push: { queries: { key: req.body.queries } } }, (err, query) => {
         //pushes new query into our queries array
         if (err) throw new Error(err);
-        res.end();
+        else next();
     })
 }
 

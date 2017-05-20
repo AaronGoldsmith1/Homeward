@@ -5,30 +5,31 @@ const craigslistController = {};
 let request = require('request')
 
 
-craigslistController.getQueries= (req, res)=>{
-    console.log('here')
-    User.findOne({phone: "987"}, (err, user)=>{
+craigslistController.getViewed= (phone)=>{
+    User.findOne({phone}, (err, user)=>{
         if(err) throw new Error(err);
-        res.send(user.queries);
+        else {
+        }
     })
 } 
 module.exports = craigslistController;
 
-// let client = new craigslist.Client({
-//     city : 'seattle'
-//   });
-// let options = {
-//     category : 'apa',
-//     maxAsk : '200',
-//     minAsk : '100'
-//   };
- 
-// client
-//   .search(options, '2 bed')
-//   .then((listings) => {
-//     // filtered listings (by price) 
-//     listings.forEach((listing) => console.log(listing));
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
+
+craigslistController.executeQuery = function (req, res, next) {
+    let client = new craigslist.Client({
+        city : 'losangeles'
+    });
+    client
+    .search({
+        maxAsk : req.body.max,
+        minAsk : req.body.min
+    }, req.body.search + " bed " + req.body.zip)
+    .then((listings) => {
+        // filtered listings (by price) 
+        req.body.list = listings;
+        next();
+    })
+    .catch((err) => {
+        console.error(err);
+  });
+}
