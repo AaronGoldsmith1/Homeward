@@ -8,9 +8,8 @@ const sessionController = require('./session/sessionController');
 const cookieController = require('./util/cookieController');
 const chronJobController = require('./util/chronJobController');
 const twilioController = require('./util/twilioController');
-
+const client = require('twilio')('AC5d6dabce4797b65a544edc775b8858bb', 'c0a502a6ef22603ce2c3d5cc18dba45f');
 const userController = require('./user/userController');
-const craigslistController = require('./util/craigslistController');
 
 const PORT = process.env.PORT || 3000;
 
@@ -31,14 +30,14 @@ app.use(cookieParser());
 
 
 // request from client to Register User
-app.post('/register', userController.createUser, cookieController.setSSIDCookie, sessionController.startSessionRegister);
+app.post('/register', userController.createUser, cookieController.setSSIDCookie, sessionController.startSession);
+// app.post('/createuser', userController.createUser);
 
 /*
 * Authorizer route
 */
 // request from client to Login
-app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSessionLogin);
-
+app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession);
 
 
 /**

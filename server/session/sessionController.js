@@ -25,7 +25,7 @@ sessionController.isLoggedIn = (req, res, next) => {
 * startSessionRegister - create a new Session model and then save the new session to the
 * database. Response to send user to query preferences page.
 */
-sessionController.startSessionRegister = (req, res, next) => {
+sessionController.startSession = (req, res, next) => {
   Session.create({
     cookieId: req.body._id
   }, function(err, session) {
@@ -37,27 +37,6 @@ sessionController.startSessionRegister = (req, res, next) => {
       console.log("New Session - Failure")
       // TODO: redirect to the signup page
       return res.send(false);
-    }
-  });
-};
-
-
-/**
-* startSessionLogin - create a new Session model and then save the new session to the
-* database. Response to seend user to user profile page.
-*/
-sessionController.startSessionLogin = (req, res, next) => {
-  Session.create({
-    cookieId: req._id
-  }, function(err, session) {
-    if (session) {
-      console.log("New Session - Success")
-      // TODO: where to send the user after we store the session, last step in login/register
-      return res.redirect('/');
-    } else {
-      console.log("New Session - Failure")
-      // TODO: redirect to the signup page
-      return res.redirect('/signup');
     }
   });
 };

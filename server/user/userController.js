@@ -24,14 +24,16 @@ userController.createQuery = (req, res, next) => {
         if (err) throw new Error(err);
         res.end();
     })
-    next();
-
 }
 
 userController.verifyUser = (req, res, next) => {
-  User.findOne({username: req.body.phone}, (err, result) => {
+  User.findOne({phone: req.body.phone, password: req.body.password}, (err, user) => {
     if (err) throw err;
-    else next()
+    else {
+        req.body.phone = user.phone;
+        req.body._id = user._id;
+        next();
+    }
   })
 };
 
