@@ -20,7 +20,7 @@ chronJobController.scheduleJob = function (req, res, next) {
                 for (user in users) {
                     for (query in user.queries){
                         // set results to be what is returned from the craigslist call
-                        chronJobController.sendMessage(/*results*/, query.viewed, user.phone);
+                        // chronJobController.sendMessage(/*results*/, query.viewed, user.phone);
                     }
                 }
             }

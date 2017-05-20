@@ -22,9 +22,9 @@ export default class Login extends Component {
     axios
       .post("/register", { phone: this.number, password: this.pw })
       .then(function (result) {
-        if (result) {
-          console.log(result)
+        if (result.data) {
           //update state (loggedIn) and route to preferences
+          let newState = Object.assign({},this.state,{loggedIn:"true", number:this.number , page:"pref"})
         }
         else {
           console.log('error')
