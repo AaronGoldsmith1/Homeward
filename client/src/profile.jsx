@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import Login from './login.jsx'
-import Preferences from './preferences.jsx'
-import Profile from './profile.jsx'
-const axios = require('axios');
 
-class App extends Component {
+
+export class Profile extends Component {
   constructor() {
     super();
     this.state = function () {
       let obj = {
-        userNumber: null,
-        loggedIn: false,
-        number:null,
+        number: null,
+        user: null,
+        loggedIn: false
       };
       return obj;
     }();
@@ -45,24 +42,23 @@ class App extends Component {
     this.setState(obj)
   }
 
-  registerUser(e){
-console.log(e)
-  }
-
   render() {
-    let pageToRender;
-    if (this.state.loggedIn === false) { pageToRender = <Login /> }
-    if (this.state.loggedIn === "test1") { pageToRender = <Preferences /> }
-    if (this.state.loggedIn === "test2") { pageToRender = <Profile /> }
     return (
-      <div id="App">
-        {pageToRender}
+      <div id="Profile">
+        <div id="userID"><h2>{this.props.phone}</h2></div>
+        <div class="query">
+          <div class="queryInfo">
+            [min]-[max] in [city], [zip] for a [search] bedroom
+          </div>
+          <div class="queryList">
+            {/*{queryResults}*/}
+            <ul>
+              <li> [title] : [url]</li>
+            </ul>
+          </div>
+        </div>
       </div>
     )
   }
-}
-//app constructor ends
-
-
-render(<App />, document.getElementById('content'));
+}//app constructor ends
 
