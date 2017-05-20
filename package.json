@@ -17,6 +17,7 @@
     "mocha": "^2.2.5",
     "mocha-phantomjs": "^4.0.1",
     "mongoose": "^4.9.9",
+    "node-schedule": "^1.2.1",
     "nodemon": "^1.9.2",
     "twilio": "^3.0.0"
   },
