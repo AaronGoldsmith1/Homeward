@@ -6,9 +6,11 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const sessionController = require('./session/sessionController');
 const cookieController = require('./util/cookieController');
-const chronJobController = require('./utils/chronJobController');
-const client = require('twilio')('AC5d6dabce4797b65a544edc775b8858bb', 'c0a502a6ef22603ce2c3d5cc18dba45f');
+const chronJobController = require('./util/chronJobController');
+const twilioController = require('./util/twilioController');
+
 const userController = require('./user/userController');
+const craigslistController = require('./util/craigslistController');
 
 const PORT = process.env.PORT || 3000;
 
@@ -24,19 +26,19 @@ app.use(bodyParser());
 app.use(cookieParser());
 
 // Unauthorized routes
-app.get('/login', )
-app.get('/register', )
+// app.get('/login', )
+// app.get('/register', )
 
 
 // request from client to Register User
-app.post('/register', /* CreateUser */, cookieController.setSSIDCookie, sessionController.startSession);
-
+app.post('/register', userController.createUser, cookieController.setSSIDCookie, sessionController.startSessionRegister);
 
 /*
-*   Authorizer route
+* Authorizer route
 */
 // request from client to Login
-app.post('/login', /* VerifyUser */, cookieController.setSSIDCookie, sessionController.startSession);
+app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSessionLogin);
+
 
 
 /**
@@ -44,7 +46,7 @@ app.post('/login', /* VerifyUser */, cookieController.setSSIDCookie, sessionCont
 */
 // request from client to Logout
 app.post('/logout', sessionController.isLoggedIn, cookieController.removeSSIDCookie, sessionController.stopSession);
-
+app.post('/createquery', userController.createQuery)//, add twilio middleware here to text query list
 
 // sessionController.isLoggedIn (middleware to check if the user is logged in)
 // to be called before all "Authorized" routes get and post requests
@@ -60,12 +62,13 @@ app.get('/*', function(req,res) {
   // res.render(__dirname + '/../views/pageNotFound.ejs', {});
 });
 
-
-app.post('/createuser', userController.createUser)
 app.post('/createquery', userController.createQuery)//, add twilio middleware here to text query list
 
 app.listen(PORT, () => {
   console.log('Listening on port 3000');
 });
 
-chronJobController.scheduleJob();
+/*
+* Start the chronjob
+*/
+// chronJobController.scheduleJob();

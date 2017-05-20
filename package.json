@@ -4,7 +4,8 @@
   "description": "Homeward",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "node_modules/.bin/gulp",
+    "gulp": "node_modules/.bin/gulp",
+    "start": "node ./server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "jest": {
@@ -29,6 +30,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
+    "request": "^2.81.0",
     "twilio": "^3.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.2"
