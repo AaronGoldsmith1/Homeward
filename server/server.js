@@ -17,14 +17,17 @@ mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
-app.use(express.static(path.join(__dirname, './../node_modules/')));
-app.use(express.static(path.join(__dirname, './../client/')));
+// app.use(express.static(path.join(__dirname, './../node_modules/')));
+// app.use(express.static(path.join(__dirname, './../client/')));
+app.use(express.static(path.join(__dirname, './../build/')));
 app.use(bodyParser());
 
 app.use(cookieParser());
 
 // Unauthorized routes
-// app.get('/login', )
+// app.get('*', function (req, res) {
+//   return res.sendFile(path.resolve(__dirname, '/client/index.html'))
+// });
 // app.get('/register', )
 
 
@@ -47,7 +50,7 @@ app.post('/logout', sessionController.isLoggedIn, cookieController.removeSSIDCoo
 app.post('/createquery', sessionController.isLoggedIn, userController.createQuery);
 
 // get the user's queries and results
-app.get('/getresults', sessionController.isLoggedIn, userController.getResults );
+// app.get('/getresults', sessionController.isLoggedIn, userController.getResults );
 
 
 // sessionController.isLoggedIn (middleware to check if the user is logged in)

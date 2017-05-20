@@ -13,8 +13,8 @@ cookieController.removeSSIDCookie = removeSSIDCookie;
 */
 
 function setSSIDCookie(req, res, next) {
-  console.log("Setting ssid cookie to ===> ", req._id);
-  res.cookie('ssid', req._id, {
+  console.log("Setting ssid cookie to ===> ", req.body._id);
+  res.cookie('ssid', req.body._id, {
     httpOnly: true
   });
   next();
