@@ -8,6 +8,13 @@ const client = require('twilio')(accSid, accToken);
 
 const twilioController = {};
 
+/*
+*   getClient - hacky way to get the chronjob working
+*/
+twilioController.getClient = function(){
+    return client;
+}
+
 
 /*
 *   filterData - Filter the data receieved with the previously viewed data
@@ -22,19 +29,24 @@ twilioController.filterData = function (req, res, next) {
     // get the new list, and the viewed data
     const viewed = req.body.viewed;
     const list = req.body.list;
+
     // holds the titles that have been viewed before
     const titles = [];
+
     // holds the pages that have not been viewed before
     const validTitles = [];
+
     // gets the titles of all the viewed objects
     for (let index = 0; index < viewed.length; index++) {
         titles.push(viewed[index].title);
     }
+
     // adds the valid titles to the validTitles array
     for(let index = 0; index < list.length; index++) {
         if (!titles.includes(list[index].title))
             validTitles.push(list[index]);
     }
+
     // adds an array of page objects to the request body
     req.body.pages = validTitles;
 
@@ -57,6 +69,7 @@ twilioController.formatMessage = function (req, res, next) {
     for(page in pages) {
         message.concat(page.url + " %0a ");
     }
+
     // Adds a message(string) to the request body
     req.body.message = message;
 
@@ -83,7 +96,7 @@ twilioController.postMessage = function (req, res, next) {
             console.log(message.sid);
     });
     // End Point
-    return;
+    res.end();
 }
 
 module.exports = twilioController;
