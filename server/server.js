@@ -45,9 +45,10 @@ app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, se
 * Authorized routes
 */
 // request from client to Logout
-app.post('/logout', sessionController.isLoggedIn, cookieController.removeSSIDCookie, sessionController.stopSession);
+app.post('/logout', cookieController.removeSSIDCookie, sessionController.stopSession);
+
 // create the queries
-app.post('/createquery', sessionController.isLoggedIn, userController.createQuery);
+app.post('/createquery', userController.createQuery, craigslistController.executeQuery, twilioController.filterData, twilioController.formatMessage, twilioController.postMessage);
 
 // get the user's queries and results
 // app.get('/getresults', sessionController.isLoggedIn, userController.getResults );

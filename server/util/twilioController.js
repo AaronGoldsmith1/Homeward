@@ -26,29 +26,30 @@ twilioController.getClient = function(){
 *   @param next - Callback with signature ([err])
 */
 twilioController.filterData = function (req, res, next) {
-    // get the new list, and the viewed data
-    const viewed = req.body.viewed;
-    const list = req.body.list;
+    // // get the new list, and the viewed data
+    // const viewed = req.body.viewed;
+    // const list = req.body.list;
 
-    // holds the titles that have been viewed before
-    const titles = [];
+    // // holds the titles that have been viewed before
+    // const titles = [];
 
-    // holds the pages that have not been viewed before
-    const validTitles = [];
+    // // holds the pages that have not been viewed before
+    // const validTitles = [];
 
-    // gets the titles of all the viewed objects
-    for (let index = 0; index < viewed.length; index++) {
-        titles.push(viewed[index].title);
-    }
+    // // gets the titles of all the viewed objects
+    // for (let index = 0; index < viewed.length; index++) {
+    //     titles.push(viewed[index].title);
+    // }
 
-    // adds the valid titles to the validTitles array
-    for(let index = 0; index < list.length; index++) {
-        if (!titles.includes(list[index].title))
-            validTitles.push(list[index]);
-    }
+    // // adds the valid titles to the validTitles array
+    // for(let index = 0; index < list.length; index++) {
+    //     if (!titles.includes(list[index].title))
+    //         validTitles.push(list[index]);
+    // }
 
-    // adds an array of page objects to the request body
-    req.body.pages = validTitles;
+    // // adds an array of page objects to the request body
+    // req.body.pages = validTitles;
+    req.body.pages = req.body.list;
 
     next();
 }
