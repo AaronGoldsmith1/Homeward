@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import Login from './login.jsx'
-import Preferences from './preferences.jsx'
-import Profile from './profile.jsx'
-const axios = require('axios');
 
-class App extends Component {
+
+export default class Preferences extends Component {
   constructor() {
     super();
     this.state = function () {
       let obj = {
-        userNumber: null,
-        loggedIn: false,
-        number:null,
+        number: null,
+        loggedIn: false
       };
       return obj;
     }();
@@ -45,24 +41,48 @@ class App extends Component {
     this.setState(obj)
   }
 
-  registerUser(e){
-console.log(e)
+  render() {
+    return (
+      <div id="Preferences">
+        <div id="title">
+          <h2> Create a Query: </h2>
+        </div>
+        <form id="prefForm">
+        <div id="cityDiv" className="prefIn">City: <input type="text" name="city" value="losangeles" readOnly required/> </div>
+        <div id="catDiv" className="prefIn">Category: <input type="text" name="cat" value="Apartments" readOnly required/> </div>
+        <div id="zipDiv" className="prefIn">Zip Code: <input type="number" name="zip" placeholder="Zip Code" required/> </div>
+        <div id="minDiv" className="prefIn">Max Price: <input type="number" name="min" placeholder="Min Price" required/> </div>
+        <div id="maxDiv" className="prefIn">Min Price: <input type="number" name="max" placeholder="Max Price" required/> </div>
+        <div id="bedDiv" className="prefIn">Bedrooms: <input type="number" name="beds" value="2"/> </div>
+        </form>
+         <input className="queryButton" type="submit" value="Create Query" />
+      </div>
+    )
   }
+}//app constructor ends
+
+class Row extends Component {
 
   render() {
-    let pageToRender;
-    if (this.state.loggedIn === false) { pageToRender = <Login /> }
-    if (this.state.loggedIn === "test1") { pageToRender = <Preferences /> }
-    if (this.state.loggedIn === "test2") { pageToRender = <Profile /> }
     return (
-      <div id="App">
-        {pageToRender}
+      <div className="Row" >
+        <Box boxID={(this.props.rowLabel * 3) + 1} letter={this.props.letter} onClick={this.props.onClick} />
       </div>
     )
   }
 }
-//app constructor ends
 
-
-render(<App />, document.getElementById('content'));
-
+class Box extends Component {
+  render() {
+    let styles = {
+      color: "blue",
+      height: 100,
+      width: 100,
+      fontSize: 30
+    }
+    return (
+      <button id={this.props.boxID} style={styles} onClick={this.props.onClick}> TEST
+      </button>
+    )
+  }
+}
