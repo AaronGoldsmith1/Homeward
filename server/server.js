@@ -17,23 +17,6 @@ mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
 
-<<<<<<< HEAD
-app.use(stormpath.init(app, {
-  web: {
-    produces: ['application/json']
-  }
-}));
-
-app.on('stormpath.ready', function () {
-  app.listen(3000, 'localhost', function (err) {
-    if (err) {
-      return console.error(err);
-    }
-    console.log('Listening at http://localhost:3000');
-  });
-});
-=======
-
 app.use(express.static(path.join(__dirname, './../node_modules/')));
 app.use(express.static(path.join(__dirname, './../client/')));
 app.use(bodyParser());
@@ -86,4 +69,3 @@ app.listen(PORT, () => {
 });
 
 chronJobController.scheduleJob();
->>>>>>> dff24415ccbab89fc0e892ae3b0d0a03ad6c0408
